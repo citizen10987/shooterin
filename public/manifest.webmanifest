@@ -1,0 +1,9 @@
+{
+  "name": "Shooter",
+  "short_name": "Shooter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F5F5",
+  "theme_color": "#F5F5F5",
+  "icons": [{ "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }]
+}
