@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as PlanRouteImport } from './routes/plan'
+import { Route as ContentIndexRouteImport } from './routes/content.index'
+import { Route as ContentIdRouteImport } from './routes/content.$id'
 import { Route as IdeasIndexRouteImport } from './routes/ideas.index'
 import { Route as IdeasIdRouteImport } from './routes/ideas.$id'
 
@@ -19,9 +22,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlanRoute = PlanRouteImport.update({
   id: '/plan',
   path: '/plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContentIndexRoute = ContentIndexRouteImport.update({
+  id: '/content/',
+  path: '/content/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContentIdRoute = ContentIdRouteImport.update({
+  id: '/content/$id',
+  path: '/content/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IdeasIndexRoute = IdeasIndexRouteImport.update({
@@ -37,35 +55,69 @@ const IdeasIdRoute = IdeasIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/help': typeof HelpRoute
   '/plan': typeof PlanRoute
+  '/content/$id': typeof ContentIdRoute
   '/ideas/$id': typeof IdeasIdRoute
+  '/content/': typeof ContentIndexRoute
   '/ideas/': typeof IdeasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/help': typeof HelpRoute
   '/plan': typeof PlanRoute
+  '/content/$id': typeof ContentIdRoute
   '/ideas/$id': typeof IdeasIdRoute
+  '/content': typeof ContentIndexRoute
   '/ideas': typeof IdeasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/help': typeof HelpRoute
   '/plan': typeof PlanRoute
+  '/content/$id': typeof ContentIdRoute
   '/ideas/$id': typeof IdeasIdRoute
+  '/content/': typeof ContentIndexRoute
   '/ideas/': typeof IdeasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/plan' | '/ideas/$id' | '/ideas/'
+  fullPaths:
+    | '/'
+    | '/help'
+    | '/plan'
+    | '/content/$id'
+    | '/ideas/$id'
+    | '/content/'
+    | '/ideas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/plan' | '/ideas/$id' | '/ideas'
-  id: '__root__' | '/' | '/plan' | '/ideas/$id' | '/ideas/'
+  to:
+    | '/'
+    | '/help'
+    | '/plan'
+    | '/content/$id'
+    | '/ideas/$id'
+    | '/content'
+    | '/ideas'
+  id:
+    | '__root__'
+    | '/'
+    | '/help'
+    | '/plan'
+    | '/content/$id'
+    | '/ideas/$id'
+    | '/content/'
+    | '/ideas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HelpRoute: typeof HelpRoute
   PlanRoute: typeof PlanRoute
+  ContentIdRoute: typeof ContentIdRoute
   IdeasIdRoute: typeof IdeasIdRoute
+  ContentIndexRoute: typeof ContentIndexRoute
   IdeasIndexRoute: typeof IdeasIndexRoute
 }
 
@@ -78,11 +130,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/plan': {
       id: '/plan'
       path: '/plan'
       fullPath: '/plan'
       preLoaderRoute: typeof PlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/content/': {
+      id: '/content/'
+      path: '/content'
+      fullPath: '/content/'
+      preLoaderRoute: typeof ContentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/content/$id': {
+      id: '/content/$id'
+      path: '/content/$id'
+      fullPath: '/content/$id'
+      preLoaderRoute: typeof ContentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ideas/': {
@@ -104,8 +177,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HelpRoute: HelpRoute,
   PlanRoute: PlanRoute,
+  ContentIdRoute: ContentIdRoute,
   IdeasIdRoute: IdeasIdRoute,
+  ContentIndexRoute: ContentIndexRoute,
   IdeasIndexRoute: IdeasIndexRoute,
 }
 export const routeTree = rootRouteImport
